@@ -1,23 +1,16 @@
 {
-  "name": "master-crawling-app",
+  "name": "myelectron",
   "version": "1.0.0",
-  "description": "peacepiece7@naver.com",
+  "description": "my first electron app",
   "main": "index.js",
   "scripts": {
-    "start:dev": "electron .",
+    "watch": "webpack --config webpack.common.js --watch",
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make",
-    "watch": "webpack --config webpack.common.js --watch"
+    "make": "electron-forge make"
   },
-  "author": "",
+  "author": "taetae",
   "license": "ISC",
-  "dependencies": {
-    "electron-squirrel-startup": "^1.0.0",
-    "puppeteer": "^13.0.0",
-    "puppeteer-core": "^13.0.0",
-    "puppeteer-in-electron": "^3.0.5"
-  },
   "devDependencies": {
     "@babel/core": "^7.16.5",
     "@babel/preset-env": "^7.16.5",
@@ -30,13 +23,17 @@
     "babel-loader": "^8.2.3",
     "css-loader": "^6.5.1",
     "electron": "^16.0.4",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
     "sass": "^1.45.0",
     "sass-loader": "^12.4.0",
     "style-loader": "^3.3.1",
     "webpack": "^5.65.0",
     "webpack-cli": "^4.9.1"
+  },
+  "dependencies": {
+    "axios": "^0.24.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "config": {
     "forge": {
@@ -45,7 +42,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "master_crawling_app"
+            "name": "myelectron"
           }
         },
         {
