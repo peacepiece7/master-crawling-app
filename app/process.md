@@ -14,14 +14,14 @@ payload.js
 
 `npm init`
 
-description, author 작성
+### electron 설치
 
-### script 추가
+`npm install --save-dev electron`
 
-```js
-package.json
+### package.json script 추가
 
-"scripts" : { "start" : "electron ."}
+```json
+{ "scripts": { "start": "electron ." } }
 ```
 
 ### index.html 추가
@@ -47,9 +47,9 @@ package.json
 ### index.js 추가
 
 ```js
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow } = require('electron');
 // include the Node.js 'path' module at the top of your file
-const path = require("path");
+const path = require('path');
 
 // modify your existing createWindow() function
 function createWindow() {
@@ -57,29 +57,29 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
+      preload: path.join(__dirname, 'preload.js'),
     },
   });
-  win.loadFile("index.html");
+  win.loadFile('index.html');
 }
 app.whenReady().then(() => {
   createWindow();
 });
-app.on("window-all-closed", function () {
-  if (process.platform !== "darwin") app.quit();
+app.on('window-all-closed', function () {
+  if (process.platform !== 'darwin') app.quit();
 });
 ```
 
 ### payload.js 추가
 
 ```js
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener('DOMContentLoaded', () => {
   const replaceText = (selector, text) => {
     const element = document.getElementById(selector);
     if (element) element.innerText = text;
   };
 
-  for (const dependency of ["chrome", "node", "electron"]) {
+  for (const dependency of ['chrome', 'node', 'electron']) {
     replaceText(`${dependency}-version`, process.versions[dependency]);
   }
 });
@@ -117,10 +117,10 @@ window.addEventListener("DOMContentLoaded", () => {
 ### src/js/index.js 파일 만들기
 
 ```js
-import React from "react";
-import ReactDom from "react-dom";
+import React from 'react';
+import ReactDom from 'react-dom';
 
-ReactDom.render(<h1>Hello React App</h1>, document.getElementById("root"));
+ReactDom.render(<h1>Hello React App</h1>, document.getElementById('root'));
 ```
 
 ### 웹팩용 패키치 추가
@@ -130,31 +130,31 @@ ReactDom.render(<h1>Hello React App</h1>, document.getElementById("root"));
 ### webpack.common.js 추가 (root 폴더)
 
 ```js
-const path = require("path");
+const path = require('path');
 
 module.exports = {
-  mode: "development",
-  entry: "./src/js/index.js",
-  devtool: "inline-source-map",
-  target: "electron-renderer",
+  mode: 'development',
+  entry: './src/js/index.js',
+  devtool: 'inline-source-map',
+  target: 'electron-renderer',
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
             presets: [
               [
-                "@babel/preset-env",
+                '@babel/preset-env',
                 {
                   targets: {
                     esmodules: true,
                   },
                 },
               ],
-              "@babel/preset-react",
+              '@babel/preset-react',
             ],
           },
         },
@@ -163,21 +163,21 @@ module.exports = {
         test: [/\.s[ac]ss$/i, /\.css$/i],
         use: [
           // Creates `style` nodes from JS strings
-          "style-loader",
+          'style-loader',
           // Translates CSS into CommonJS
-          "css-loader",
+          'css-loader',
           // Compiles Sass to CSS
-          "sass-loader",
+          'sass-loader',
         ],
       },
     ],
   },
   resolve: {
-    extensions: [".js"],
+    extensions: ['.js'],
   },
   output: {
-    filename: "app.js",
-    path: path.resolve(__dirname, "build", "js"),
+    filename: 'app.js',
+    path: path.resolve(__dirname, 'build', 'js'),
   },
 };
 ```
@@ -207,7 +207,7 @@ module.exports = {
 - src/js/App.js 추가
 
 ```js
-import React from "react";
+import React from 'react';
 
 export default function App() {
   return <h1>I am App Component</h1>;
@@ -217,9 +217,9 @@ export default function App() {
 - src/js/index.js 수정
 
 ```js
-import App from "./App";
+import App from './App';
 
-ReactDom.render(<App />, document.getElementById("root"));
+ReactDom.render(<App />, document.getElementById('root'));
 ```
 
 - 저장(Ctrl+s)

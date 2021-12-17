@@ -29,9 +29,10 @@ const dummyData = [
 
 // 1. Master-crawler parsing
 
-mainRouter.get('/:query/crawl', async (req, res, next) => {
+mainRouter.post('/:query/crawl', async (req, res, next) => {
   try {
     const query = req.body.query;
+    console.log(req.body);
     const browser = await puppeteer.launch({
       headless: false,
       args: ['--window-size:1720,1400'],
@@ -71,7 +72,7 @@ mainRouter.get('/:query/crawl', async (req, res, next) => {
           } else {
             mf = mf[0];
           }
-          result.push({ mf: mf, pn: pn, link: pdfLink });
+          result.push({ manufacture: mf, partnumber: pn, url: pdfLink });
         });
       }
       return result;

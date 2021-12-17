@@ -1,9 +1,5 @@
-import React, { useCallback } from 'react';
-
-import CrawlWorkForm from './componenets/crawlWorkForm';
+import React from "react";
 
 export default function App() {
-  const handleCrawling = useCallback((query) => {}, []);
-
-  return <CrawlWorkForm onQuery={handleCrawling}></CrawlWorkForm>;
+  return <h1>I am App Component</h1>;
 }
