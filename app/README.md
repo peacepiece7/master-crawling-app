@@ -1,6 +1,6 @@
 # Electron Quick start
 
-# Electron에 React 추가
+electron에 react를 추가
 
 # ref
 

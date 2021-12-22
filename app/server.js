@@ -1,12 +1,11 @@
-const express = require('express');
+const express = reuqire("express");
 
 const app = express();
 
-app.use('/', (req, res, next) => {
-  console.log('get a request!');
-  res.status(200).send('Hi');
+app.use("/", (req, res, next) => {
+  res.status(200).send("hello!");
 });
 
-app.listen(3050, () => {
-  console.log('connedted listen port : 3050');
+app.listen(3065, () => {
+  console.log("listen port : 3065");
 });
