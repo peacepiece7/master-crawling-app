@@ -12,11 +12,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan('combined'));
 app.use(cors());
 
-app.use('/', (req, res, next) => {
-  res.status(200).send('Hello, world!');
+app.use('/api', mainRouter);
+
+app.use('/test', (req, res, next) => {
+  res.send('test page');
 });
 
-app.use('/app', mainRouter);
+app.use('/', (req, res, next) => {
+  res.send('Hello, world!');
+});
 
 app.listen(3080, () => {
   console.log('listend port : 3080');

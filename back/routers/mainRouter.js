@@ -3,31 +3,42 @@ const puppeteer = require('puppeteer');
 
 const mainRouter = express.Router();
 
-//! Dummy data
-const dummyData = [
-  {
-    url: 'https://www.budind.com/wp-content/uploads/2019/11/hbps11594.pdf',
-    partnumber: 'PS-11594-B',
-    manufacture: 'Bud Industries',
-  },
-  {
-    url: 'https://www.hammfg.com/electronics/small-case/development-board/1593ham-beag.pdf',
-    partnumber: '1593HAMBONEBK',
-    manufacture: 'Hammond Manufacturing',
-  },
-  {
-    url: 'https://cdn.shopify.com/s/files/1/2187/3161/files/NBR-0005_Nebra_IP67_Weatherproof_Enclosure.pdf',
-    partnumber: 'NBR-0005',
-    manufacture: 'pi supply',
-  },
-  {
-    url: 'https://media.digikey.com/pdf/Data%20Sheets/Seeed%20Technology/110991384_Web.pdf',
-    partnumber: 'Raspberry Pi 4 case black/grey',
-    manufacture: 'Hammond Raspberry Pi',
-  },
-];
-
 // 1. Master-crawler parsing
+
+mainRouter.get('/test', (req, res, next) => {
+  res.json({ test: 'test object' });
+});
+
+mainRouter.get(`/crawl`, async (req, res, next) => {
+  try {
+    console.log('HI!');
+    const browser = await puppeteer.launch({
+      headless: false,
+      args: ['--window-size:1720,1400'],
+    });
+    await browser.userAgent(
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36'
+    );
+    let page = await browser.newPage();
+    await page.setViewport({
+      width: 1520,
+      height: 1280,
+    });
+    await page.goto(`http://115.22.68.60/master/crawl/index.jsp?pre=$1`, {
+      waitUntil: 'networkidle0',
+    });
+
+    const result = await page.evaluate(() => {
+      return 'SUCCESS TO CONNECTING WITH BACKEND!';
+    });
+    await page.close();
+    await browser.close();
+
+    res.json(result);
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 mainRouter.post('/:query/crawl', async (req, res, next) => {
   try {
