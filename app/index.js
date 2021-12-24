@@ -61,7 +61,7 @@ ipcMain.on(POST_CRAWLING_REQUEST, async (event, args) => {
 ipcMain.on(EXCEL_BEFORE_REQUEST, async (event, args) => {
   try {
     const result = await axios.get(`htto://localhost:3080/api/excelbefore`);
-    console.log(result);
+    console.log(result.data);
   } catch (error) {
     console.log(error);
   }

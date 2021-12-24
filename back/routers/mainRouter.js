@@ -104,7 +104,7 @@ mainRouter.get("/excelbefore", async (req, res, next) => {
         wb.write(`${dir}/crawling_work_sheet.xlsx`);
         wb.write(`${dir}/crawling_backup/crawling_work_sheet_backup.xlsx`);
       }
-      res.json("엑셀 시트가 생성되었습니다.");
+      res.send("엑셀 시트가 생성되었습니다.");
     } catch (error) {
       console.log(error);
     }
